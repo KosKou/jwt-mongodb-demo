@@ -10,52 +10,25 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.security.Principal;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 public class UserController {
-
     @Autowired
     private UserService userService;
 
-    @Autowired
-    private RoleService roleService;
-
-    @GetMapping("/addUsers")
-    public String someUser(){
-        userService.createUser(new User("user@gmail.com","123456"), roleService.findByName("USER"));
-        userService.createUser(new User("admin@gmail.com","123456"), roleService.findByName("ADMIN"));
-        return "Usuarios Creados";
-    }
-
-
-    @GetMapping("/fillRoles")
+    //    Initial Roles set
+    @GetMapping("/fillUsers")
     public String fill(){
-        if (roleService.findByName("ADMIN") == null){
-            roleService.createRole(new Role("ADMIN"));
+        Optional<User> admin = userService.findByEmail("admin@gmail.com");
+        if (!admin.isPresent()){
+            userService.createUser(new User("admin@gmail.com","123456"),"ADMIN");
         }
-
-        if (roleService.findByName("USER") == null){
-            roleService.createRole(new Role("USER"));
-        }
-        roleService.createRole(new Role("TEST"));
-        return "Thats it";
+        return "The users have been initialized";
     }
 
-    @GetMapping("/listar")
-    public List<Role> listar(){
-        return roleService.findAll();
-    }
-
-
-    @GetMapping("/addRole")
-    public String addRole(Principal principal){
-        String email = principal.getName();
-        User user = userService.findByEmail(email);
-        List<Role> roles = user.getRoles();
-        roles.add(roleService.findByName("ADMIN"));
-        user.setRoles(roles);
-
-        userService.updateUser(user);
-        return "Roles are updated";
+    @GetMapping("/users")
+    public List<User> listAll(){
+        return userService.findAll();
     }
 }

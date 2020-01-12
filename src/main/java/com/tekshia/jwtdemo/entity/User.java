@@ -1,10 +1,14 @@
 package com.tekshia.jwtdemo.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 import java.util.List;
 
@@ -13,36 +17,50 @@ public class User {
 
     @Id
     private String id;
-
+    @Email
     private String email;
+    @NotEmpty
+    @NotNull
+    @JsonIgnore
     private String password;
-    private String phoneNumber;
-    private String firstName;
-    private String lastName;
+    @NotEmpty
+    private String name;
 
-    private String profilePicture;
-    private String profileCover;
-
-    private Boolean enabled;
-
-    @CreatedDate
-    private Date createdDate;
-
-    //Injected Values
     @DBRef
     private List<Role> roles;
 
-    //Constructor
+    private String profilePicture;
+    private String status;
+    private Boolean enabled;
+    @CreatedDate
+    private Date createdDate;
+
+    //    Constructor
     public User() {
     }
 
-    public User(String email, String password) {
+    public User(@Email String email, @NotEmpty @NotNull String password) {
         this.email = email;
         this.password = password;
     }
+    //    Methods
 
-    //Getter & Setter
 
+    public Boolean getEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(Boolean enabled) {
+        this.enabled = enabled;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
     public String getId() {
         return id;
@@ -60,36 +78,12 @@ public class User {
         this.email = email;
     }
 
-    public String getPassword() {
-        return password;
+    public String getName() {
+        return name;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getProfilePicture() {
@@ -100,12 +94,12 @@ public class User {
         this.profilePicture = profilePicture;
     }
 
-    public String getProfileCover() {
-        return profileCover;
+    public String getStatus() {
+        return status;
     }
 
-    public void setProfileCover(String profileCover) {
-        this.profileCover = profileCover;
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public Date getCreatedDate() {
@@ -122,13 +116,5 @@ public class User {
 
     public void setRoles(List<Role> roles) {
         this.roles = roles;
-    }
-
-    public Boolean getEnabled() {
-        return enabled;
-    }
-
-    public void setEnabled(Boolean enabled) {
-        this.enabled = enabled;
     }
 }

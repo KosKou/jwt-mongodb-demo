@@ -1,8 +1,8 @@
 package com.tekshia.jwtdemo.security.service;
 
-import com.tekshia.crehire.demo.entity.Role;
-import com.tekshia.crehire.demo.entity.User;
-import com.tekshia.crehire.demo.repository.UserRepository;
+import com.tekshia.jwtdemo.entity.Role;
+import com.tekshia.jwtdemo.entity.User;
+import com.tekshia.jwtdemo.repository.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

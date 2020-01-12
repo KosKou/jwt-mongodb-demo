@@ -10,6 +10,7 @@ import java.util.Optional;
 
 @Service
 public class RoleService {
+
     @Autowired
     private RoleRepository roleRepository;
 
@@ -21,9 +22,14 @@ public class RoleService {
         return roleRepository.findById(id);
     }
 
-    public Role findByName(String name){
-        return roleRepository.findByName(name);
+    public Optional<Role> findByRole(String role){
+        return roleRepository.findByRole(role);
     }
+
+    public boolean isRoleExist(String id){
+        return roleRepository.existsById(id);
+    }
+
     //Update & Save
     public Role createRole(Role role){
         return roleRepository.save(role);
@@ -32,6 +38,4 @@ public class RoleService {
     public void deleteRole(String id){
         roleRepository.deleteById(id);
     }
-
-
 }

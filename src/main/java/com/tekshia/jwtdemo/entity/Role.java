@@ -11,20 +11,18 @@ public class Role {
 
     @Id
     private String id;
+    private String role;
 
-    private String name;
-
-    //Injection
     @DBRef
     private List<User> users;
-
+    //    Constructor
     public Role() {
     }
-
-    public Role(String name) {
-        this.name = name;
+    public Role(String role) {
+        this.role = role;
     }
 
+    //    Methods
     public String getId() {
         return id;
     }
@@ -33,11 +31,11 @@ public class Role {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getRole() {
+        return role;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setRole(String role) {
+        this.role = role;
     }
 }
